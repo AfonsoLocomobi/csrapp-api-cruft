@@ -14,7 +14,7 @@ default: &default
 
 development:
   <<: *default
-  database: cleveland_development
+  database: cleveland_api_development
 
 
 # Warning: The database defined as "test" will be erased and
