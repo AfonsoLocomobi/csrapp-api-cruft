@@ -8,8 +8,5 @@ class BauthStatusController < ApplicationController
     render :json => {:status => :ok}
   end
 
-  def logout
-    render :nothing => true, :status => :unauthorized
-  end
   
 end
