@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214181644) do
+ActiveRecord::Schema.define(version: 20161223192122) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 20161214181644) do
     t.datetime "created_at",                                                                 null: false
     t.datetime "updated_at",                                                                 null: false
     t.string   "badge_prox_encode"
-    t.string   "form_of_payment"
     t.string   "employment_type"
     t.string   "company"
     t.string   "location"
@@ -149,6 +148,12 @@ ActiveRecord::Schema.define(version: 20161214181644) do
 
   create_table "group_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inner_circles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -44,6 +44,16 @@ class ViolationsController < ApplicationController
     end
   end
 
+  def amounts
+    @violation_amounts = ViolationAmount.all
+    render json: @violation_amounts
+  end
+
+  def types
+    @violation_types = ViolationType.all
+    render json: @violation_types
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_violation

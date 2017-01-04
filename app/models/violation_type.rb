@@ -1,0 +1,2 @@
+class ViolationType < ApplicationRecord
+end

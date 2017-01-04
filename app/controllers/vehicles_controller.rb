@@ -6,7 +6,7 @@ class VehiclesController < ApplicationController
 
   def index
     @vehicles = Vehicle.where :cc_employee_id => params[:cc_employee_id]
-    render json: @vehicles
+    #render json: @vehicles
   end
 
   def show
@@ -45,6 +45,16 @@ class VehiclesController < ApplicationController
     respond_to do |format|
       format.json { head :no_content }
     end
+  end
+
+  def types
+    @vehicle_types = VehicleType.all
+    render json: @vehicle_types
+  end
+
+  def models
+    @vehicle_models = VehicleModel.all
+    render json: @vehicle_models
   end
 
   private

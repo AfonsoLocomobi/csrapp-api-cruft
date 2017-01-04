@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   get 'bauth_status', to: 'bauth_status#status'
   get 'bauth_logout', to: 'bauth_login#logout'
 
+  get 'states', to: 'states#index'
+  get 'vehicles/types', to: 'vehicles#types'
+  get 'vehicles/models', to: 'vehicles#models'
+
+  get 'violations/amounts', to: 'violations#amounts'
+  get 'violations/types', to: 'violations#types' 
+
   resources :cc_employees
   resources :vehicles
   resources :violations
@@ -12,11 +19,12 @@ Rails.application.routes.draw do
     resources :vehicles
   end
 
-#  resources :assignments
+  resources :assignments
+  resources :group_accounts
+
 #  resources :violation_amounts
 #  resources :violation_types
 #  resources :employee_supplements
-#  resources :group_accounts
 #  resources :vehicle_models
 #  resources :vehicle_types
 #  resources :employees
