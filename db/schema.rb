@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223192122) do
+ActiveRecord::Schema.define(version: 20170105190310) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "auth_tokens", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "token"
+    t.integer  "user_id"
+    t.datetime "last_access"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["token"], name: "index_auth_tokens_on_token", unique: true, using: :btree
+    t.index ["user_id"], name: "index_auth_tokens_on_user_id", using: :btree
   end
 
   create_table "badges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -179,6 +189,15 @@ ActiveRecord::Schema.define(version: 20161223192122) do
     t.index ["name"], name: "index_states_on_name", unique: true, using: :btree
   end
 
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+  end
+
   create_table "vehicle_models", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "manufacturer"
     t.string   "model"
@@ -237,6 +256,7 @@ ActiveRecord::Schema.define(version: 20161223192122) do
     t.index ["violation_type_id"], name: "index_violations_on_violation_type_id", using: :btree
   end
 
+  add_foreign_key "auth_tokens", "users"
   add_foreign_key "badges", "cc_employees"
   add_foreign_key "cc_employees", "assignments", column: "primary_assignment_id"
   add_foreign_key "cc_employees", "assignments", column: "secondary_assignment_id"

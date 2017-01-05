@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'bauth_status', to: 'bauth_status#status'
   get 'bauth_logout', to: 'bauth_login#logout'
@@ -8,7 +10,10 @@ Rails.application.routes.draw do
   get 'vehicles/models', to: 'vehicles#models'
 
   get 'violations/amounts', to: 'violations#amounts'
-  get 'violations/types', to: 'violations#types' 
+  get 'violations/types', to: 'violations#types'
+
+  post 'login', to: 'session#login'
+  post 'logout', to: 'session#logout'
 
   resources :cc_employees
   resources :vehicles
