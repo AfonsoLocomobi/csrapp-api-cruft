@@ -1,4 +1,4 @@
-class GroupAccountsController < ApplicationController
+class GroupAccountsController < AdminController
   before_action :set_group_account, only: [:show, :edit, :update, :destroy]
 
   def index

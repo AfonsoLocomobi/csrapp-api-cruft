@@ -1,4 +1,4 @@
-class CcEmployeesController < ApplicationController
+class CcEmployeesController < AdminController
   before_action :set_cc_employee, only: [:show, :edit, :update, :destroy]
 
 

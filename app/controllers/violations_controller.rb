@@ -1,4 +1,4 @@
-class ViolationsController < ApplicationController
+class ViolationsController < AdminController
   before_action :set_violation, only: [:show, :edit, :update, :destroy]
 
   def index

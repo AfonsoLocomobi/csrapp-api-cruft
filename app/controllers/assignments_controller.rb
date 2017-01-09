@@ -1,4 +1,4 @@
-class AssignmentsController < ApplicationController
+class AssignmentsController < AdminController
   before_action :set_assignment, only: [:show, :edit, :update, :destroy]
 
   def index
