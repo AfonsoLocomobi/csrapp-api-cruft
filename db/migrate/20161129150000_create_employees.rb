@@ -1,6 +1,6 @@
-class CreateCcEmployees < ActiveRecord::Migration[5.0]
+class CreateEmployees < ActiveRecord::Migration[5.0]
   def change
-    create_table :cc_employees do |t|
+    create_table :employees do |t|
       t.date :ada_cerificate_expiration_date
       t.date :adjust_hire_date
       t.date :car_pool_expiration_date
@@ -26,7 +26,7 @@ class CreateCcEmployees < ActiveRecord::Migration[5.0]
       t.string :middle_initial
       t.string :name_suffix
       t.string :employee_number
-      t.string :employement_status
+      t.string :employment_status
       t.string :fte
       t.string :job_code
       t.string :job_title
@@ -42,9 +42,9 @@ class CreateCcEmployees < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_foreign_key :cc_employees, :assignments, column: :primary_assignment_id
-    add_foreign_key :cc_employees, :assignments, column: :secondary_assignment_id
+    add_foreign_key :employees, :assignments, column: :primary_assignment_id
+    add_foreign_key :employees, :assignments, column: :secondary_assignment_id
 
-    add_index :cc_employees, :employee_number, unique: true
+    add_index :employees, :employee_number, unique: true
   end
 end

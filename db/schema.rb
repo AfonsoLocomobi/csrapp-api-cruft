@@ -10,22 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105190310) do
+ActiveRecord::Schema.define(version: 20170105151856) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "auth_tokens", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "token"
-    t.integer  "user_id"
-    t.datetime "last_access"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["token"], name: "index_auth_tokens_on_token", unique: true, using: :btree
-    t.index ["user_id"], name: "index_auth_tokens_on_user_id", using: :btree
   end
 
   create_table "badges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -39,12 +29,10 @@ ActiveRecord::Schema.define(version: 20170105190310) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "employee_id"
-    t.integer  "cc_employee_id"
-    t.index ["cc_employee_id"], name: "index_badges_on_cc_employee_id", using: :btree
     t.index ["employee_id"], name: "index_badges_on_employee_id", using: :btree
   end
 
-  create_table "cc_employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.date     "ada_cerificate_expiration_date"
     t.date     "adjust_hire_date"
     t.date     "car_pool_expiration_date"
@@ -85,6 +73,7 @@ ActiveRecord::Schema.define(version: 20170105190310) do
     t.datetime "created_at",                                                                 null: false
     t.datetime "updated_at",                                                                 null: false
     t.string   "badge_prox_encode"
+    t.string   "form_of_payment"
     t.string   "employment_type"
     t.string   "company"
     t.string   "location"
@@ -95,61 +84,11 @@ ActiveRecord::Schema.define(version: 20170105190310) do
     t.string   "termination_code"
     t.integer  "form_of_payment_id"
     t.string   "primary_shift"
-    t.index ["employee_number"], name: "index_cc_employees_on_employee_number", unique: true, using: :btree
-    t.index ["form_of_payment_id"], name: "fk_rails_0fa89d3858", using: :btree
-    t.index ["group_account_id"], name: "index_cc_employees_on_group_account_id", using: :btree
-    t.index ["primary_assignment_id"], name: "fk_rails_d95c1b3121", using: :btree
-    t.index ["secondary_assignment_id"], name: "fk_rails_098e716ab8", using: :btree
-  end
-
-  create_table "employee_supplements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.date     "primary_assignment_expiration_date"
-    t.date     "secondary_assignment_expiration_date"
-    t.date     "temporary_start_date"
-    t.date     "temporary_expiration_date"
-    t.decimal  "monthly_fee",                                        precision: 5, scale: 2
-    t.integer  "group_account_id"
-    t.string   "car_pool_number"
-    t.date     "car_pool_expiration_date"
-    t.string   "ada_certificate_number"
-    t.date     "ada_cerificate_expiration_date"
-    t.string   "secondary_email"
-    t.string   "mobile_number"
-    t.text     "notes",                                limit: 65535
-    t.string   "valet_code"
-    t.datetime "created_at",                                                                 null: false
-    t.datetime "updated_at",                                                                 null: false
-    t.integer  "employee_id"
-    t.index ["employee_id"], name: "index_employee_supplements_on_employee_id", using: :btree
-    t.index ["group_account_id"], name: "index_employee_supplements_on_group_account_id", using: :btree
-  end
-
-  create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "employee_number"
-    t.string   "employee_first_name"
-    t.string   "employee_middle_initial"
-    t.string   "employee_last_name"
-    t.string   "employee_name_suffix"
-    t.date     "effective_status_change_date"
-    t.date     "termination_date"
-    t.string   "employement_status"
-    t.date     "hire_date"
-    t.date     "adjust_hire_date"
-    t.string   "department_name"
-    t.string   "job_code"
-    t.string   "job_title"
-    t.string   "division_institute"
-    t.string   "fte"
-    t.string   "ccf_mail_code"
-    t.string   "email_address"
-    t.integer  "badge_encode_number"
-    t.string   "supervisor_first_name"
-    t.string   "supervisor_last_name"
-    t.string   "supervisor_employee_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "employee_supplement_id"
-    t.index ["employee_supplement_id"], name: "index_employees_on_employee_supplement_id", using: :btree
+    t.index ["employee_number"], name: "index_employees_on_employee_number", unique: true, using: :btree
+    t.index ["form_of_payment_id"], name: "fk_rails_37f0ba381c", using: :btree
+    t.index ["group_account_id"], name: "index_employees_on_group_account_id", using: :btree
+    t.index ["primary_assignment_id"], name: "fk_rails_9596804eb0", using: :btree
+    t.index ["secondary_assignment_id"], name: "fk_rails_db6b741ec4", using: :btree
   end
 
   create_table "forms_of_payment", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -158,12 +97,6 @@ ActiveRecord::Schema.define(version: 20170105190310) do
 
   create_table "group_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "inner_circles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -221,9 +154,9 @@ ActiveRecord::Schema.define(version: 20170105190310) do
     t.string   "leed_qualified"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "cc_employee_id",             null: false
+    t.integer  "employee_id"
     t.integer  "vehicle_type_id"
-    t.index ["cc_employee_id"], name: "fk_rails_89b166b1b6", using: :btree
+    t.index ["employee_id"], name: "index_vehicles_on_employee_id", using: :btree
     t.index ["state_id"], name: "index_vehicles_on_state_id", using: :btree
     t.index ["vehicle_model_id"], name: "index_vehicles_on_vehicle_model_id", using: :btree
     t.index ["vehicle_type_id"], name: "index_vehicles_on_vehicle_type_id", using: :btree
@@ -251,24 +184,20 @@ ActiveRecord::Schema.define(version: 20170105190310) do
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.string   "action"
-    t.integer  "cc_employee_id"
-    t.index ["cc_employee_id"], name: "fk_rails_b762e3b545", using: :btree
+    t.integer  "employee_id"
+    t.index ["employee_id"], name: "fk_rails_43ffb98545", using: :btree
     t.index ["violation_type_id"], name: "index_violations_on_violation_type_id", using: :btree
   end
 
-  add_foreign_key "auth_tokens", "users"
-  add_foreign_key "badges", "cc_employees"
-  add_foreign_key "cc_employees", "assignments", column: "primary_assignment_id"
-  add_foreign_key "cc_employees", "assignments", column: "secondary_assignment_id"
-  add_foreign_key "cc_employees", "forms_of_payment", column: "form_of_payment_id"
-  add_foreign_key "cc_employees", "group_accounts"
-  add_foreign_key "employee_supplements", "employees"
-  add_foreign_key "employee_supplements", "group_accounts"
-  add_foreign_key "employees", "employee_supplements"
-  add_foreign_key "vehicles", "cc_employees"
+  add_foreign_key "badges", "employees"
+  add_foreign_key "employees", "assignments", column: "primary_assignment_id"
+  add_foreign_key "employees", "assignments", column: "secondary_assignment_id"
+  add_foreign_key "employees", "forms_of_payment", column: "form_of_payment_id"
+  add_foreign_key "employees", "group_accounts"
+  add_foreign_key "vehicles", "employees"
   add_foreign_key "vehicles", "states"
   add_foreign_key "vehicles", "vehicle_models"
   add_foreign_key "vehicles", "vehicle_types"
-  add_foreign_key "violations", "cc_employees"
+  add_foreign_key "violations", "employees"
   add_foreign_key "violations", "violation_types"
 end

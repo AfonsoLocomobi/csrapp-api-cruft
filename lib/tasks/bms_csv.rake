@@ -34,11 +34,11 @@ namespace :bms_csv do
             badge.organizational_id     = row[5]
             badge.status_flag           = row[6]
 
-            employee = CcEmployee.find_by(badge_encode_number: badge.badge_encode_number)
+            employee = Employee.find_by(badge_encode_number: badge.badge_encode_number)
 
             begin
               
-                badge.cc_employee_id = employee.id unless employee.nil?
+                badge.employee_id = employee.id unless employee.nil?
 
                 badge.save!
 

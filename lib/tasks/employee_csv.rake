@@ -33,7 +33,7 @@ namespace :employee_csv do
         csv_path = args.csv_path
 
         EmployeeExtractCsvParser.foreach(csv_path) do |row|
-            employee = CcEmployee.new
+            employee = Employee.new
 					
             employee.employee_number                    = row[EMPLOYEE_ID_POS]
             employee.first_name                         = row[EMPLOYEE_FIRST_NAME_POS]

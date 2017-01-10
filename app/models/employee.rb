@@ -1,4 +1,4 @@
-class CcEmployee < ApplicationRecord
+class Employee < ApplicationRecord
   belongs_to :group_account, optional: true
   belongs_to :assignment, optional: true, :foreign_key => 'primary_assignment_id'
   belongs_to :assignment, optional: true, :foreign_key => 'secondary_assignment_id'

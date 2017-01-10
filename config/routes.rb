@@ -17,13 +17,13 @@ Rails.application.routes.draw do
   post 'login', to: 'session#login'
   post 'logout', to: 'session#logout'
 
-  get 'cc_employees/find/by', to: 'cc_employees#find'
+  get 'employees/find/by', to: 'employees#find'
 
-  resources :cc_employees
+  resources :employees
   resources :vehicles
   resources :violations
 
-  resources :cc_employees do
+  resources :employees do
     resources :violations
     resources :vehicles
   end

@@ -5,7 +5,7 @@ class VehiclesController < AdminController
   MODEL_YEAR_WINDOW = 10
 
   def index
-    @vehicles = Vehicle.where :cc_employee_id => params[:cc_employee_id]
+    @vehicles = Vehicle.where :employee_id => params[:employee_id]
     #render json: @vehicles
   end
 
@@ -14,7 +14,7 @@ class VehiclesController < AdminController
   end
 
   def new
-    @vehicle = Vehicle.new :cc_employee_id => params[:cc_employee_id]
+    @vehicle = Vehicle.new :employee_id => params[:employee_id]
     render json: @vehicle
   end
 
@@ -65,6 +65,6 @@ class VehiclesController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
-      params.require(:vehicle).permit(:license_plate_number, :state_id, :temporary_plate, :vehicle_type, :year, :vehicle_model_id, :vehicle_type_id, :color, :avi_sticker_number, :parking_lot_sticker_number, :leed_qualified, :cc_employee_id)
+      params.require(:vehicle).permit(:license_plate_number, :state_id, :temporary_plate, :vehicle_type, :year, :vehicle_model_id, :vehicle_type_id, :color, :avi_sticker_number, :parking_lot_sticker_number, :leed_qualified, :employee_id)
     end
 end
