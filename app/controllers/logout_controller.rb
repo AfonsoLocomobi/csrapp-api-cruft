@@ -1,4 +1,4 @@
-class BauthLoginController < ApplicationController
+class LogoutController < ApplicationController
 
   def logout
     render :nothing => true, :status => :unauthorized
