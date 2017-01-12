@@ -17,30 +17,24 @@ class EmployeesController < AdminController
   def create
     @employee = Employee.new(employee_params)
 
-    respond_to do |format|
-      if @employee.save
-        format.json { render :show, status: :created, location: @employee }
-      else
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
-      end
+    if @employee.save
+      render :show, status: :created, location: @employee
+    else
+      render json: @employee.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @employee.update(employee_params)
-        format.json { render :show, status: :ok, location: @employee }
-      else
-        format.json { render json: @employee.errors, status: :unprocessable_entity }
-      end
+    if @employee.update(employee_params)
+      render json: @employee
+    else
+      render json: @employee.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
     @employee.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   def find

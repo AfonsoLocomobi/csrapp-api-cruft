@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105151856) do
+ActiveRecord::Schema.define(version: 20170111204522) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
@@ -157,9 +157,16 @@ ActiveRecord::Schema.define(version: 20170105151856) do
     t.integer  "employee_id"
     t.integer  "vehicle_type_id"
     t.index ["employee_id"], name: "index_vehicles_on_employee_id", using: :btree
+    t.index ["license_plate_number", "state_id"], name: "index_vehicles_on_license_plate_number_and_state_id", unique: true, using: :btree
     t.index ["state_id"], name: "index_vehicles_on_state_id", using: :btree
     t.index ["vehicle_model_id"], name: "index_vehicles_on_vehicle_model_id", using: :btree
     t.index ["vehicle_type_id"], name: "index_vehicles_on_vehicle_type_id", using: :btree
+  end
+
+  create_table "violation_actions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "violation_amounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -176,16 +183,16 @@ ActiveRecord::Schema.define(version: 20170105151856) do
 
   create_table "violations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.date     "violation_date"
-    t.decimal  "violation_amount",  precision: 5, scale: 2
+    t.decimal  "violation_amount",    precision: 5, scale: 2
     t.integer  "violation_type_id"
     t.string   "violation_number"
     t.string   "payment_status"
-    t.string   "appeal"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "action"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "employee_id"
+    t.integer  "violation_action_id",                         null: false
     t.index ["employee_id"], name: "fk_rails_43ffb98545", using: :btree
+    t.index ["violation_action_id"], name: "fk_rails_4d1d78fba3", using: :btree
     t.index ["violation_type_id"], name: "index_violations_on_violation_type_id", using: :btree
   end
 
@@ -199,5 +206,6 @@ ActiveRecord::Schema.define(version: 20170105151856) do
   add_foreign_key "vehicles", "vehicle_models"
   add_foreign_key "vehicles", "vehicle_types"
   add_foreign_key "violations", "employees"
+  add_foreign_key "violations", "violation_actions"
   add_foreign_key "violations", "violation_types"
 end

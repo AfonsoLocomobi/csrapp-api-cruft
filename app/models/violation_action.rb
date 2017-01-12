@@ -1,0 +1,2 @@
+class ViolationAction < ApplicationRecord
+end

@@ -11,11 +11,12 @@ Rails.application.routes.draw do
   get 'vehicles/models', to: 'vehicles#models'
   get 'forms_of_payment', to: 'forms_of_payment#index'
 
+  get 'violations/actions', to: 'violations#actions'
   get 'violations/amounts', to: 'violations#amounts'
   get 'violations/types', to: 'violations#types'
 
-  post 'login', to: 'session#login'
-  post 'logout', to: 'session#logout'
+  post 'login', to: 'login#login'
+  post 'logout', to: 'logout#logout'
 
   get 'employees/find/by', to: 'employees#find'
 

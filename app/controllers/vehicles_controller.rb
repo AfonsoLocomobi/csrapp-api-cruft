@@ -6,45 +6,35 @@ class VehiclesController < AdminController
 
   def index
     @vehicles = Vehicle.where :employee_id => params[:employee_id]
-    #render json: @vehicles
+    render json: @vehicles
   end
 
   def show
     render json: @vehicle
   end
 
-  def new
-    @vehicle = Vehicle.new :employee_id => params[:employee_id]
-    render json: @vehicle
-  end
-
   def create
     @vehicle = Vehicle.new(vehicle_params)
+    @vehicle.employee_id = params[:employee_id]
 
-    respond_to do |format|
-      if @vehicle.save
-        format.json { render :show, status: :created, location: @vehicle }
-      else
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
-      end
+    if @vehicle.save
+      render json: @vehicle
+    else
+      render json: @vehicle.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @vehicle.update(vehicle_params)
-        format.json { render :show, status: :ok, location: @vehicle }
-      else
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
-      end
+    if @vehicle.update(vehicle_params)
+      render json: @vehicle
+    else
+      render json: @vehicle.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
     @vehicle.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   def types
@@ -65,6 +55,6 @@ class VehiclesController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vehicle_params
-      params.require(:vehicle).permit(:license_plate_number, :state_id, :temporary_plate, :vehicle_type, :year, :vehicle_model_id, :vehicle_type_id, :color, :avi_sticker_number, :parking_lot_sticker_number, :leed_qualified, :employee_id)
+      params.require(:vehicle).permit(:license_plate_number, :state_id, :temporary_plate, :vehicle_type, :year, :vehicle_model_id, :vehicle_type_id, :color, :avi_sticker_number, :parking_lot_sticker_number, :leed_qualified)
     end
 end
