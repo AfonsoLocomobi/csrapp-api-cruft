@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get 'employees/find/by', to: 'employees#find'
 
+  get 'employees/:agent_employee_id/log', to: 'user_profile_log#index'
+
   resources :employees
   resources :vehicles
   resources :violations

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111204522) do
+ActiveRecord::Schema.define(version: 20170112195123) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20170111204522) do
     t.string   "supervisor_employee_id"
     t.string   "supervisor_first_name"
     t.string   "supervisor_last_name"
-    t.string   "valet_code"
+    t.boolean  "valet_code"
     t.text     "notes",                                limit: 65535
     t.datetime "created_at",                                                                 null: false
     t.datetime "updated_at",                                                                 null: false
@@ -120,6 +120,19 @@ ActiveRecord::Schema.define(version: 20170111204522) do
     t.datetime "updated_at",   null: false
     t.index ["abbreviation"], name: "index_states_on_abbreviation", unique: true, using: :btree
     t.index ["name"], name: "index_states_on_name", unique: true, using: :btree
+  end
+
+  create_table "user_profile_log_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "agent_employee_id",               null: false
+    t.string   "action"
+    t.string   "target"
+    t.integer  "target_id"
+    t.string   "old_value"
+    t.string   "new_value"
+    t.text     "description",       limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["agent_employee_id"], name: "fk_rails_1fd901dd15", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -201,6 +214,7 @@ ActiveRecord::Schema.define(version: 20170111204522) do
   add_foreign_key "employees", "assignments", column: "secondary_assignment_id"
   add_foreign_key "employees", "forms_of_payment", column: "form_of_payment_id"
   add_foreign_key "employees", "group_accounts"
+  add_foreign_key "user_profile_log_entries", "employees", column: "agent_employee_id"
   add_foreign_key "vehicles", "employees"
   add_foreign_key "vehicles", "states"
   add_foreign_key "vehicles", "vehicle_models"

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: one
+  action: MyString
+  target: MyString
+  old_value: MyString
+  new_value: MyString
+  description: MyText
+
+two:
+  employee: two
+  action: MyString
+  target: MyString
+  old_value: MyString
+  new_value: MyString
+  description: MyText
