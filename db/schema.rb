@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112195123) do
+ActiveRecord::Schema.define(version: 20170217192125) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20170112195123) do
     t.string   "termination_code"
     t.integer  "form_of_payment_id"
     t.string   "primary_shift"
+    t.string   "record_origin",                                                              null: false
+    t.string   "silkroad_username"
     t.index ["employee_number"], name: "index_employees_on_employee_number", unique: true, using: :btree
     t.index ["form_of_payment_id"], name: "fk_rails_37f0ba381c", using: :btree
     t.index ["group_account_id"], name: "index_employees_on_group_account_id", using: :btree

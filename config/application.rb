@@ -31,5 +31,8 @@ module CsrApi
     config.time_zone = "Eastern Time (US & Canada)"
     config.active_record.default_timezone = :local
 
+    # add lib/ directories to autoload path
+    config.autoload_paths << "#{config.root}/lib/silk_road"
+
   end
 end

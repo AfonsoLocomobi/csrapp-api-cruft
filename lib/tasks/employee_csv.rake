@@ -23,6 +23,8 @@ namespace :employee_csv do
     SUPERVISOR_FIRST_NAME_POS           = 33
     SUPERVISOR_LAST_NAME_POS            = 34
     SUPERVISOR_EMPLOYEE_ID_POS          = 35
+
+    K1200_RECORD = 'K1200'
 					
 
     task :import, [:csv_path] => [:environment] do |task, args|
@@ -33,8 +35,19 @@ namespace :employee_csv do
         csv_path = args.csv_path
 
         EmployeeExtractCsvParser.foreach(csv_path) do |row|
-            employee = Employee.new
-					
+
+            employee_number = row[EMPLOYEE_ID_POS]
+
+            employee = Employee.find_by employee_number: employee_number
+            if !employee
+                employee = Employee.new
+                employee.record_origin = K1200_RECORD
+            end
+
+            if employee.record_origin != K1200_RECORD
+                puts "Warning: K1200 extract employee '#{employee.employee_number}' has improper record origin '#{employee.record_origin}'"
+            end
+
             employee.employee_number                    = row[EMPLOYEE_ID_POS]
             employee.first_name                         = row[EMPLOYEE_FIRST_NAME_POS]
             employee.middle_initial                     = row[EMPLOYEE_MIDDLE_INITIAL_POS]
@@ -57,7 +70,12 @@ namespace :employee_csv do
             employee.supervisor_last_name               = row[SUPERVISOR_LAST_NAME_POS]
             employee.supervisor_employee_id             = row[SUPERVISOR_EMPLOYEE_ID_POS]
 
-            employee.save!
+            employee.save
+
+            if !employee.save
+                puts "Unable to save K1200 extract user '#{employee.employee_number}"
+            end
+
             
         end
 
