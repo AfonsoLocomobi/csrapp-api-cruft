@@ -22,6 +22,10 @@ Rails.application.routes.draw do
 
   get 'employees/:agent_employee_id/log', to: 'user_profile_log#index'
 
+  get 'employees/:employee_id/notes', to: 'employee_notes#index'
+  post 'employees/:employee_id/notes', to: 'employee_notes#create'
+  delete 'employees/:employee_id/notes/:note_id', to: 'employee_notes#destroy'
+
   resources :employees
   resources :vehicles
   resources :violations

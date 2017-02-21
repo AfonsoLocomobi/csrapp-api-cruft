@@ -6,6 +6,7 @@ class Employee < ApplicationRecord
 
   has_many :violations
   has_many :vehicles
+  has_many :employee_notes
 
   validates :employee_number, presence: true
 end

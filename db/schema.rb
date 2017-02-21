@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217192125) do
+ActiveRecord::Schema.define(version: 20170221210506) do
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20170217192125) do
     t.datetime "updated_at",          null: false
     t.integer  "employee_id"
     t.index ["employee_id"], name: "index_badges_on_employee_id", using: :btree
+  end
+
+  create_table "employee_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.text     "body",               limit: 65535, null: false
+    t.integer  "created_by_user_id",               null: false
+    t.integer  "employee_id",                      null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["created_by_user_id"], name: "fk_rails_147338800a", using: :btree
+    t.index ["employee_id"], name: "index_employee_notes_on_employee_id", using: :btree
   end
 
   create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -212,6 +222,8 @@ ActiveRecord::Schema.define(version: 20170217192125) do
   end
 
   add_foreign_key "badges", "employees"
+  add_foreign_key "employee_notes", "employees"
+  add_foreign_key "employee_notes", "users", column: "created_by_user_id"
   add_foreign_key "employees", "assignments", column: "primary_assignment_id"
   add_foreign_key "employees", "assignments", column: "secondary_assignment_id"
   add_foreign_key "employees", "forms_of_payment", column: "form_of_payment_id"
