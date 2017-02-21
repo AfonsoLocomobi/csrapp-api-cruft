@@ -34,5 +34,13 @@ module CsrApi
     # add lib/ directories to autoload path
     config.autoload_paths << "#{config.root}/lib/silk_road"
 
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :delete, :patch, :put, :options]
+      end
+    end
+
+
   end
 end
