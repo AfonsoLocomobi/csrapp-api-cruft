@@ -70,8 +70,6 @@ namespace :employee_csv do
             employee.supervisor_last_name               = row[SUPERVISOR_LAST_NAME_POS]
             employee.supervisor_employee_id             = row[SUPERVISOR_EMPLOYEE_ID_POS]
 
-            employee.save
-
             if !employee.save
                 puts "Unable to save K1200 extract user '#{employee.employee_number}"
             end
